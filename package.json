@@ -1,0 +1,21 @@
+{
+  "name": "snippet-application-part-1",
+  "version": "1.0.0",
+  "description": "an app for posting code snippets",
+  "main": "server.js",
+  "scripts": {
+    "start": "npx nodemon server.js"
+  },
+  "author": "Pooja Shekhar",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mongoose": "^7.6.3",
+    "open": "^9.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

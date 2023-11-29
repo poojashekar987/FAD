@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Page</title>
+</head>
+<body>
+    <h1>Welcome to Doctor Portal</h1>
+    <button onclick="getPatientData()" > View Patient Details</button>
+
+    <div id="patient-data">
+
+    </div>
+
+    <script>
+        async function getPatientData() {
+  try {
+    const response = await fetch('/doctor/getPatientData');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const patientData = await response.json();
+
+    // Assuming you have a div with id 'patient-data' in your HTML
+    const patientDataDiv = document.getElementById('patient-data');
+    patientDataDiv.innerHTML = ''; // Clear existing content
+
+    // Create a table and add it to the div
+    const table = document.createElement('table');
+    table.setAttribute('border', '1'); // For basic styling
+
+    // Create table header
+    const header = table.createTHead();
+    const headerRow = header.insertRow(0);
+    const headers = ["User Name","ID","User ID", "Baseline Value", "Accelerations", "Fetal Movement", "Uterine Contractions", "Light Decelerations", "Severe Decelerations", "Prolongued Decelerations", "Abnormal Short Term Variability", "Mean Value Of Short Term Variability", "Percentage Of Time With Abnormal Long Term Variability", "Mean Value Of Long Term Variability", "Histogram Width", "Histogram Max", "Histogram Number Of Peaks", "Histogram Number Of Zeroes", "Histogram Median", "Histogram Variance", "Histogram Tendency", "Fetal Health", "Created At", "Updated At"];
+    headers.forEach(headerText => {
+      const headerCell = document.createElement('th');
+      headerCell.textContent = headerText;
+      headerRow.appendChild(headerCell);
+    });
+
+    // Create table body
+    const tbody = table.createTBody();
+    patientData.forEach(record => {
+      const row = tbody.insertRow();
+      const cell = row.insertCell();
+      const response =  fetch('/doctor/getPatientData');
+      cell.textContent = 
+      Object.values(record).forEach(text => {
+        const cell = row.insertCell();
+        cell.textContent = typeof text === 'object' ? JSON.stringify(text) : text; // Handling nested objects
+      });
+    });
+
+    patientDataDiv.appendChild(table);
+  } catch (error) {
+    console.error('Error fetching patient data:', error);
+  }
+}
+
+    
+    </script>
+</body>
+
+
+
+
+</html>
